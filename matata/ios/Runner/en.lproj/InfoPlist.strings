@@ -1,0 +1,11 @@
+/* 
+  InfoPlist.strings
+  Runner
+
+  Created by tran on 2023/7/13.
+  
+*/
+
+"NSCameraUsageDescription" = "Please allow us to use your camera.";
+"NSPhotoLibraryUsageDescription" = "Please allow us to access your album.";
+"NSUserTrackingUsageDescription" = "This ID will be used to push personalized advertisements to you";

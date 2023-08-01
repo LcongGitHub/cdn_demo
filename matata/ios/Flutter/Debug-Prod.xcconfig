@@ -1,0 +1,15 @@
+//
+//  Debug-Prod.xcconfig
+//  Runner
+//
+//  Created by tran on 2022/11/30.
+//
+
+// Configuration settings file format documentation can be found at:
+// https://help.apple.com/xcode/#/dev745c5c974
+
+#include? "Pods/Target Support Files/Pods-Runner/Pods-Runner.debug.xcconfig"
+#include "Generated.xcconfig"
+
+APP_DISPLAY_NAME=Matata
+PRODUCT_BUNDLE_IDENTIFIER=com.egatee.matata

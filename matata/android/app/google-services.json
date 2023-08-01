@@ -1,0 +1,118 @@
+{
+  "project_info": {
+    "project_number": "943785591777",
+    "project_id": "matata-a0a89",
+    "storage_bucket": "matata-a0a89.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:943785591777:android:54fdb8ab0adf52d8e948a0",
+        "android_client_info": {
+          "package_name": "com.egatee.matata"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "943785591777-mehdjoeps4emgf6o3bt0i0b2kchnikgt.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCYAXC24CD7_aJ5-UoS4SUa354sp-L_Ujc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "943785591777-mehdjoeps4emgf6o3bt0i0b2kchnikgt.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "943785591777-22k79j5okhqketfmapsdb8r2s5f254cf.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.egatee.matata.dev"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:943785591777:android:661662c334abe82be948a0",
+        "android_client_info": {
+          "package_name": "com.egatee.matata.dev"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "943785591777-mehdjoeps4emgf6o3bt0i0b2kchnikgt.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCYAXC24CD7_aJ5-UoS4SUa354sp-L_Ujc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "943785591777-mehdjoeps4emgf6o3bt0i0b2kchnikgt.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "943785591777-22k79j5okhqketfmapsdb8r2s5f254cf.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.egatee.matata.dev"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:943785591777:android:85f52f9713420298e948a0",
+        "android_client_info": {
+          "package_name": "com.egatee.matata.uat"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "943785591777-mehdjoeps4emgf6o3bt0i0b2kchnikgt.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCYAXC24CD7_aJ5-UoS4SUa354sp-L_Ujc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "943785591777-mehdjoeps4emgf6o3bt0i0b2kchnikgt.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "943785591777-22k79j5okhqketfmapsdb8r2s5f254cf.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.egatee.matata.dev"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

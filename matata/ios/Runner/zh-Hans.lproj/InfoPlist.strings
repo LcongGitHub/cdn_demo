@@ -1,0 +1,10 @@
+/* 
+  InfoPlist.strings
+  Runner
+
+  Created by tran on 2023/7/13.
+  
+*/
+"NSCameraUsageDescription" = "“Matata”想访问您的相机";
+"NSPhotoLibraryUsageDescription" = "“Matata”想访问您的相册";
+"NSUserTrackingUsageDescription" = "该id将用于向您推送个性化广告";

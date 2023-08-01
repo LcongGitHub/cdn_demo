@@ -1,0 +1,41 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "dev",
+      "request": "launch",
+      "type": "dart",
+      "args": [
+        "--dart-define",
+        "ENVIRONMENT=dev"
+      ]
+    },
+    {
+      "name": "test",
+      "request": "launch",
+      "type": "dart",
+      "args": [
+        "--dart-define",
+        "ENVIRONMENT=test"
+      ]
+    },
+    {
+      "name": "preProfile",
+      "request": "launch",
+      "type": "dart",
+      "args": [
+        "--dart-define",
+        "ENVIRONMENT=preProfile"
+      ]
+    },
+    {
+      "name": "profile",
+      "request": "launch",
+      "type": "dart",
+      "args": [
+        "--dart-define",
+        "ENVIRONMENT=profile"
+      ]
+    }
+  ]
+}

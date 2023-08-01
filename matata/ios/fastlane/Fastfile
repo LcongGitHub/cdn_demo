@@ -1,0 +1,518 @@
+# This file contains the fastlane.tools configuration
+# You can find the documentation at https://docs.fastlane.tools
+#
+# For a list of all available actions, check out
+#
+#     https://docs.fastlane.tools/actions
+#
+# For a list of all available plugins, check out
+#
+#     https://docs.fastlane.tools/plugins/available-plugins
+#
+
+# Uncomment the line if you want fastlane to automatically update itself
+# update_fastlane
+
+default_platform(:ios)
+
+keychain_name = "TranssionKeychain"
+keychain_password = "Transsion123"
+firmToken = "77fea9917d344c3fb27c23eef2d50ca6"
+team_id = "89796F2N4C"
+bundle_id_debug = "com.egatee.matata.dev"
+bundle_id_uat = "com.egatee.matata.uat"
+bundle_id = "com.egatee.matata"
+cer_git_url = "git@sz.git.egatee.cn:2b2c/flutter_app/matataconfig.git"
+
+platform :ios do
+  desc "Description of what the lane does"
+  lane :custom_lane do
+    # add actions here: https://docs.fastlane.tools/actions
+  end
+
+  desc "设置debug模式默认证书签名配置"
+  lane :set_default_code_signing do
+
+    update_code_signing_settings(
+      use_automatic_signing: false,
+      path: "Runner.xcodeproj",
+      code_sign_identity: "iPhone Developer",
+      bundle_identifier: "com.egatee.matata.dev",
+      profile_name: "match Development com.egatee.matata.dev",
+      build_configurations: "Debug-dev",
+      team_id: team_id,
+    )
+  end
+
+  desc "创建新的证书和描述文件"
+  lane :create_new_profiles do
+    api_key = get_app_store_connect_api_key
+
+    # 创建key chain 
+    create_keychain(
+      name: keychain_name,
+      password: keychain_password,
+      default_keychain: false,
+      timeout: 3600,
+      unlock: true,
+    )
+
+    # 环境变量拿出 gitlabel 的person token
+    baisc = ENV['MATCH_GIT_BASIC_AUTHORIZATION']
+    puts "basic--#{baisc}"
+
+    match(
+      type: "development",
+      keychain_name: keychain_name,
+      keychain_password: keychain_password,
+      storage_mode: "git",
+      git_url: cer_git_url,
+      app_identifier: "com.egatee.matata.uat",
+      team_id: team_id,
+      api_key: api_key
+    )
+
+    # match(
+    #   type: "adhoc",
+    #   keychain_name: keychain_name,
+    #   keychain_password: keychain_password,
+    #   storage_mode: "git",
+    #   git_url: cer_git_url,
+    #   app_identifier: "com.egatee.matata.dev",
+    #   team_id: team_id,
+    #   api_key: api_key
+    # )
+
+#     match(
+#       type: "appstore",
+#       keychain_name: keychain_name,
+#       keychain_password: keychain_password,
+#       storage_mode: "git",
+#       git_url: cer_git_url,
+#       app_identifier: "com.egatee.matata",
+#       team_id: team_id,
+#       api_key: api_key
+#     )
+
+  end
+
+  desc "下载证书和描述文件"
+  lane :download_profiles do
+
+    create_keychain(
+      name: keychain_name,
+      password: keychain_password,
+      default_keychain: false,
+      timeout: 3600,
+      unlock: true,
+    )
+
+    match(
+      type: "development",
+      readonly: true,
+      keychain_name: keychain_name,
+      keychain_password: keychain_password,
+      storage_mode: "git",
+      git_url: cer_git_url,
+      app_identifier: "com.egatee.matata.dev",
+      team_id: team_id
+    )
+
+    match(
+      type: "development",
+      readonly: true,
+      keychain_name: keychain_name,
+      keychain_password: keychain_password,
+      storage_mode: "git",
+      git_url: cer_git_url,
+      app_identifier: "com.egatee.matata.uat",
+      team_id: team_id
+    )
+
+    match(
+      type: "development",
+      readonly: true,
+      keychain_name: keychain_name,
+      keychain_password: keychain_password,
+      storage_mode: "git",
+      git_url: cer_git_url,
+      app_identifier: "com.egatee.matata",
+      team_id: team_id
+    )
+
+    match(
+      type: "appstore",
+      readonly: true,
+      keychain_name: keychain_name,
+      keychain_password: keychain_password,
+      storage_mode: "git",
+      git_url: cer_git_url,
+      app_identifier: "com.egatee.matata",
+      team_id: team_id
+    )
+
+    # match(
+    #   type: "adhoc",
+    #   readonly: true,
+    #   keychain_name: keychain_name,
+    #   keychain_password: keychain_password,
+    #   storage_mode: "git",
+    #   git_url: cer_git_url,
+    #   app_identifier: "com.egatee.matata",
+    #   team_id: team_id
+    # )
+
+
+
+  end
+
+
+  desc "移除旧的证书和配置文件并重新生成"
+  lane :nuke_profiles do
+    api_key = get_app_store_connect_api_key
+
+    create_keychain(
+      name: keychain_name,
+      password: keychain_password,
+      default_keychain: false,
+      timeout: 3600,
+      unlock: true,
+    )
+
+    match_nuke(
+      type: "development",
+      keychain_name: keychain_name,
+      keychain_password: keychain_password,
+      storage_mode: "git",
+      git_url: cer_git_url,
+      app_identifier: "com.egatee.matata.dev",
+      team_id: team_id,
+      api_key: api_key
+    )
+
+    match_nuke(
+      type: "adhoc",
+      keychain_name: keychain_name,
+      keychain_password: keychain_password,
+      storage_mode: "git",
+      git_url: cer_git_url,
+      app_identifier: "com.egatee.matata.dev",
+      team_id: team_id,
+      api_key: api_key
+    )
+
+    match_nuke(
+      type: "appstore",
+      keychain_name: keychain_name,
+      keychain_password: keychain_password,
+      storage_mode: "git",
+      git_url: cer_git_url,
+      app_identifier: "com.egatee.matata",
+      team_id: team_id,
+      api_key: api_key
+    )
+
+    match_nuke(
+      type: "appstore",
+      keychain_name: keychain_name,
+      keychain_password: keychain_password,
+      storage_mode: "git",
+      git_url: cer_git_url,
+      app_identifier: "com.egatee.matata.uat",
+      team_id: team_id,
+      api_key: api_key
+    )
+  end
+
+  desc "更新描述文件"
+  lane :update_profiles do
+    # Add to App Store Connect
+    api_key = get_app_store_connect_api_key
+
+    # 更新描述文件到仓库中
+    # match(
+    #   type: "adhoc",
+    #   force: true,
+    #   storage_mode: "git",
+    #   git_url: "https://codeup.aliyun.com/60cffcaf2cecc3548814821f/iOS/eTaCodeSign.git",
+    #   app_identifier: "com.egatee.matata.dev",
+    #   team_id: team_id,
+    #   api_key: api_key
+    # )
+
+    match(
+      type: "development",
+      force: true,
+      storage_mode: "git",
+      git_url: cer_git_url,
+      app_identifier: "com.egatee.matata.dev",
+      team_id: team_id,
+      api_key: api_key
+    )
+
+    match(
+      type: "development",
+      force: true,
+      storage_mode: "git",
+      git_url: cer_git_url,
+      app_identifier: "com.egatee.matata.uat",
+      team_id: team_id,
+      api_key: api_key
+    )
+
+    match(
+      type: "development",
+      force: true,
+      storage_mode: "git",
+      git_url: cer_git_url,
+      app_identifier: "com.egatee.matata",
+      team_id: team_id,
+      api_key: api_key
+    )
+
+  end
+
+  desc "添加新设备"
+  lane :add_device do |options|
+    name = options[:name]
+    udid = options[:udid]
+    
+    # Add to App Store Connect
+    api_key = get_app_store_connect_api_key
+    register_device(
+      name: name,
+      udid: udid,
+      team_id: team_id,
+      api_key: api_key
+    )
+
+    update_profiles
+  end
+
+  desc "构建号+1"
+  lane :increment do
+    increment_build_number
+  end
+
+  desc "测试打包"
+  lane :archive_dev do
+    scheme="dev"
+    ipa_name = "matata_dev"
+    output_path = "./builds/"
+    ipa_path = "#{output_path}#{ipa_name}.ipa"
+
+    # 解锁keychain,获取证书
+    unlock_keychain(
+      path: "#{keychain_name}-db",
+      password: keychain_password,
+    )
+    # 取消自动签名
+    update_code_signing_settings(
+      use_automatic_signing: false,
+      path: "Runner.xcodeproj",
+      code_sign_identity: "iPhone Developer",
+      bundle_identifier: "com.egatee.matata.dev",
+      profile_name: "match Development com.egatee.matata.dev",
+      build_configurations: "Release-dev",
+    )
+
+    # 开始打包
+    gym(
+      scheme: "#{scheme}",
+      workspace: "Runner.xcworkspace",
+      xcargs: "-allowProvisioningUpdates",
+      # 输出的ipa名称
+      output_name:"#{ipa_name}",
+      # 是否清空以前的编译信息 true：是
+      clean:true,
+      # 指定打包方式，Release 或者 Debug
+      configuration: "Release-dev",
+      # 指定打包所使用的输出方式，目前支持app-store, package, ad-hoc, enterprise, development
+      export_method:"development",
+      # 指定输出文件夹
+      output_directory: "#{output_path}",
+      # 是否包含调试符号
+      include_symbols: true,
+      # 是否开启bitcode
+      include_bitcode: false,
+    )
+    # fir_cli api_token: "#{firmToken}", changelog: "测试1", specify_file_path: "#{ipa_path}"
+  end
+
+  desc "Prod打包"
+  lane :archive_uat do
+    scheme="uat"
+    ipa_name = "matata_uat"
+    output_path = "./builds/uat/"
+    ipa_path = "#{output_path}#{ipa_name}.ipa"
+
+    # 解锁keychain,获取证书
+    unlock_keychain(
+      path: "#{keychain_name}-db",
+      password: keychain_password,
+    )
+    # 取消自动签名
+    update_code_signing_settings(
+      use_automatic_signing: false,
+      path: "Runner.xcodeproj",
+      code_sign_identity: "iPhone Developer",
+      bundle_identifier: "com.egatee.matata.uat",
+      profile_name: "match Development com.egatee.matata.uat",
+      build_configurations: "Release-uat",
+    )
+
+    # 开始打包
+    gym(
+      scheme: "#{scheme}",
+      workspace: "Runner.xcworkspace",
+      xcargs: "-allowProvisioningUpdates",
+      # 输出的ipa名称
+      output_name:"#{ipa_name}",
+      # 是否清空以前的编译信息 true：是
+      clean:true,
+      # 指定打包方式，Release 或者 Debug
+      configuration: "Release-uat",
+      # 指定打包所使用的输出方式，目前支持app-store, package, ad-hoc, enterprise, development
+      export_method:"development",
+      # 指定输出文件夹
+      output_directory: "#{output_path}",
+      # 是否包含调试符号
+      include_symbols: true,
+      # 是否开启bitcode
+      include_bitcode: false,
+    )
+    # fir_cli api_token: "#{firmToken}", changelog: "测试1", specify_file_path: "#{ipa_path}"
+  end
+
+  desc "Prod打包"
+  lane :archive_prod do
+    scheme="prod"
+    ipa_name = "matata_prod"
+    output_path = "./builds/prod/"
+    ipa_path = "#{output_path}#{ipa_name}.ipa"
+
+    # 解锁keychain,获取证书
+    unlock_keychain(
+      path: "#{keychain_name}-db",
+      password: keychain_password,
+    )
+    # 取消自动签名
+    update_code_signing_settings(
+      use_automatic_signing: false,
+      path: "Runner.xcodeproj",
+      code_sign_identity: "iPhone Developer",
+      bundle_identifier: "com.egatee.matata",
+      profile_name: "match Development com.egatee.matata",
+      build_configurations: "Release-prod",
+    )
+
+    # 开始打包
+    gym(
+      scheme: "#{scheme}",
+      workspace: "Runner.xcworkspace",
+      xcargs: "-allowProvisioningUpdates",
+      # 输出的ipa名称
+      output_name:"#{ipa_name}",
+      # 是否清空以前的编译信息 true：是
+      clean:true,
+      # 指定打包方式，Release 或者 Debug
+      configuration: "Release-prod",
+      # 指定打包所使用的输出方式，目前支持app-store, package, ad-hoc, enterprise, development
+      export_method:"development",
+      # 指定输出文件夹
+      output_directory: "#{output_path}",
+      # 是否包含调试符号
+      include_symbols: true,
+      # 是否开启bitcode
+      include_bitcode: false,
+    )
+    # fir_cli api_token: "#{firmToken}", changelog: "测试1", specify_file_path: "#{ipa_path}"
+  end
+
+    desc '打包并上传IPA到App Store'
+    lane :upload_ipa_to_appstore do
+
+    # 当前时间
+    currentTime = Time.new.strftime("%Y%m%d")
+    scheme="prod"
+    ipa_name = "matata"
+    # 根据当天日期作为文件路径
+    output_path = "./builds/appstore/#{currentTime}/"
+    ipa_path = "#{output_path}#{ipa_name}.ipa"
+    api_key = get_app_store_connect_api_key
+    # 解锁keychain,获取证书
+    unlock_keychain(
+      path: "#{keychain_name}-db",
+      password: keychain_password,
+    )
+
+    # 取消自动签名
+    update_code_signing_settings(
+      use_automatic_signing: false,
+      path: "Runner.xcodeproj",
+      code_sign_identity: "iPhone Distribution",
+      bundle_identifier: "com.egatee.matata",
+      profile_name: "match AppStore com.egatee.matata",
+      build_configurations: "Release-prod",
+    )
+
+    # 开始打包
+    gym(
+      scheme: "#{scheme}",
+      workspace: "Runner.xcworkspace",
+      xcargs: "-allowProvisioningUpdates",
+      # 输出的ipa名称
+      output_name:"#{ipa_name}",
+      # 是否清空以前的编译信息 true：是
+      clean:true,
+      # 指定打包方式，Release 或者 Debug
+      configuration: "Release-prod",
+      # 指定打包所使用的输出方式，目前支持app-store, package, ad-hoc, enterprise, development
+      export_method:"app-store",
+      # 指定输出文件夹
+      output_directory: "#{output_path}",
+      # 是否包含调试符号
+      include_symbols: true,
+      # 是否开启bitcode
+      include_bitcode: false,
+    )
+
+    upload_to_app_store(
+      api_key: api_key,
+      app_identifier: "com.egatee.matata",
+      skip_metadata: true,
+      skip_screenshots: true,
+      precheck_include_in_app_purchases: false,
+      team_id: team_id,
+      ipa: "#{ipa_path}",
+       # team_name: "",
+    )
+    
+    # 取消自动签名
+    update_code_signing_settings(
+      use_automatic_signing: false,
+      path: "Runner.xcodeproj",
+      code_sign_identity: "iPhone Developer",
+      bundle_identifier: "com.egatee.matata",
+      profile_name: "match Development com.egatee.matata",
+      build_configurations: "Release-prod",
+    )
+    end
+
+  desc '获取App Store Connect API key'
+  private_lane :get_app_store_connect_api_key do
+    # 这个key 要有 Manager 权限  https://github.com/fastlane/fastlane/issues/17066
+    # 在环境变量中取出 ETA_APP_STORE_CONNECT_API_CONTENT
+
+    key_content = ENV["APP_STORE_CONNECT_API_CONTENT"]
+    puts "key_content #{key_content}"
+    api_key = app_store_connect_api_key(
+      key_id: "78697W553Z",
+      issuer_id: "5f784cea-6f1d-466e-b974-e52d5753adb3",
+      key_filepath: "./AuthKey_78697W553Z.p8",
+      duration: 1200,
+      in_house: false,
+    )
+    api_key
+  end
+end

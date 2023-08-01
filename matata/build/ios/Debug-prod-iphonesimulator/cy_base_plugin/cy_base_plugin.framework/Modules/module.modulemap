@@ -1,0 +1,11 @@
+framework module cy_base_plugin {
+  umbrella header "cy_base_plugin-umbrella.h"
+
+  export *
+  module * { export * }
+}
+
+module cy_base_plugin.Swift {
+  header "cy_base_plugin-Swift.h"
+  requires objc
+}

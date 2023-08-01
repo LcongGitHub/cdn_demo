@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites>
+  <testsuite name="fastlane.lanes">
+    
+    
+    
+      
+      <testcase classname="fastlane.lanes" name="0: default_platform" time="0.000156">
+        
+      </testcase>
+    
+      
+      <testcase classname="fastlane.lanes" name="1: unlock_keychain" time="0.038457">
+        
+      </testcase>
+    
+      
+      <testcase classname="fastlane.lanes" name="2: update_code_signing_settings" time="0.034994">
+        
+      </testcase>
+    
+      
+      <testcase classname="fastlane.lanes" name="3: gym" time="141.550528">
+        
+      </testcase>
+    
+  </testsuite>
+</testsuites>
